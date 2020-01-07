@@ -1,0 +1,87 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+<title>添加焦点图</title>
+{% endblock %}
+
+{% block content %}
+<form class="layui-form  layui-form-pane ui-form" method="post">
+    <div class="layui-form-item">
+        <label class="layui-form-label">选择栏目</label>
+        <div class="layui-input-inline">
+            <select name="column_id" lay-verify="" >
+                {% if columns %}
+                {% for column in columns %}
+                <option value="{{ column.id }}">{{ column.html|safe }} {{column.title }}</option>
+                {% endfor %}
+                {% endif %}
+            </select>
+
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">焦点图标题</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" value="" placeholder="请输入焦点图标题" lay-verify="required"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">简介</label>
+        <div class="layui-input-block">
+                <textarea name="label" placeholder="请输入简介"
+                          class="layui-textarea ui-textarea"></textarea>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">外部链接</label>
+        <div class="layui-input-block">
+            <input type="text" name="link" value="" lay-verify=""
+                   autocomplete="off"
+                   placeholder="请输入外部链接" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-upload">
+            <div class="layui-upload-list" style="display: none">
+                <div class="upload-thumb-img">
+
+                </div>
+            </div>
+            <button type="button" class="layui-btn" id="upload-thumb"
+                    upload-url="{{ url_for('upload.upload_thumb') }}" upload-type="images">
+                上传缩略图
+            </button>
+        </div>
+        <input type="hidden" name="thumb_image" class="layui-input input-upload" lay-verify="thumb_image"
+               value="">
+    </div>
+     <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-inline">
+                <input type="text" name="level" lay-verify="required|number" placeholder="请输入排序数字" autocomplete="off"
+                       value="0"
+                       class="layui-input">
+            </div>
+        </div>
+    <div class="layui-form-item" pane>
+        <label class="layui-form-label">新窗口打开</label>
+        <div class="layui-input-block">
+            <input type="checkbox" lay-verify="required" lay-filter="target" name="target" lay-skin="switch"
+                   lay-text="是|否" checked value="1">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-hide">
+        <input type="button" lay-submit="" lay-filter="app-form-submit" id="app-form-submit"
+               value="提交" data-type="save">
+
+    </div>
+</form>
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static',filename='admin/js/focus.js') }}"></script>
+{% endblock %}

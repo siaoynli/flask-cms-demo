@@ -1,0 +1,373 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+<title>网站设置</title>
+{% endblock %}
+
+{% block content %}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header ui-board-title">网站设置</div>
+                <div class="layui-card-body" pad15>
+                    <form class="layui-form  layui-form-pane" method="post"
+                          action="{{ url_for('admin.admin_system') }}">
+
+                        <div class="layui-tab" lay-filter="system-tab">
+                            <ul class="layui-tab-title">
+                                <li class="layui-this" lay-id="basic">基本设置</li>
+                                <li lay-id="upload">上传设置</li>
+                                <li lay-id="comment">文档设置</li>
+                                <li lay-id="other">其他设置</li>
+                            </ul>
+                            <div class="layui-tab-content ui-tab-content">
+                                <div class="layui-tab-item layui-show">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">网站名称</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="site_name" lay-verify="site_name"
+                                                   placeholder="请输入网站名称" value="{{ system.site_name }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">网站标题</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="title" lay-verify="title" placeholder="请输入网站标题"
+                                                   value="{{ system.title }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">META关键词</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="keyword" lay-verify="keyword"
+                                                   placeholder="请输入META关键词" value="{{ system.keyword }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">META描述</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="description" lay-verify="description"
+                                                   placeholder="请输入META描述" value="{{ system.description }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">备案信息</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="icp" placeholder="请输入备案信息" value="{{ system.icp }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item layui-form-text">
+                                        <label class="layui-form-label">统计代码</label>
+                                        <div class="layui-input-block">
+                <textarea name="census_code" placeholder="请输入统计代码"
+                          class="layui-textarea ui-textarea">{{ system.census_code }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item layui-form-text">
+                                        <label class="layui-form-label">版权信息</label>
+                                        <div class="layui-input-block">
+                <textarea name="copyright" placeholder="请输入版权信息"
+                          class="layui-textarea ui-textarea">{{ system.copyright }}</textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="layui-tab-item">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">上传路径</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="upload_path" lay-verify="upload_path"
+                                                   placeholder="请输入上传路径" value="{{  system.upload_path }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">水印类型</label>
+                                        <div class="layui-input-inline">
+                                            <select name="water_type" lay-verify="required">
+                                                <option value="image" {% if system.water_type=="image" %} selected {%
+                                                        endif %}>图片水印
+                                                </option>
+                                                <option value="txt" {% if system.water_type=="txt" %} selected {% endif
+                                                        %}>文字水印
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">图片水印地址</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="images_water" placeholder="请输入图片水印地址"
+                                                   lay-verify="images_water"
+                                                   value="{{ system.images_water }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">水印文字</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="txt_water" lay-verify="txt_water"
+                                                   placeholder="请输入水印文字"
+                                                   value="{{ system.txt_water }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">文字水印大小</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="txt_water_size" lay-verify="txt_water_size"
+                                                   placeholder="请输入文字水印大小"
+                                                   value="{{ system.txt_water_size }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">水印字体路径</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="txt_water_font" lay-verify="txt_water_font"
+                                                   placeholder="请输入文字水印路径"
+                                                   value="{{ system.txt_water_font }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">文字水印颜色</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="txt_water_color" lay-verify="txt_water_color"
+                                                   placeholder="请输入文字水印颜色"
+                                                   value="{{ system.txt_water_color }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">图片大小</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="images_size" lay-verify="images_size"
+                                                   placeholder="请输入图片大小" value="{{ system.images_size }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">图片类型</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="images_extensions" lay-verify="images_extensions"
+                                                   placeholder="请输入图片类型" value="{{ system.images_extensions }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">图片最大宽度</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="images_max_width" lay-verify="images_max_width"
+                                                   placeholder="请输入图片最大宽度" value="{{ system.images_max_width }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">图片最大高度</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="images_max_height" lay-verify="images_max_height"
+                                                   placeholder="请输入图片最大高度" value="{{ system.images_max_height }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">媒体大小</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="media_size" lay-verify="media_size"
+                                                   placeholder="请输入媒体大小" value="{{ system.media_size }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">媒体类型</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="media_extensions" lay-verify="media_extensions"
+                                                   placeholder="请输入媒体类型" value="{{ system.media_extensions }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">视频水印地址</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="video_water" placeholder="请输入视频水印地址"
+                                                   value="{{ system.video_water }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">附件大小</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="attach_size" lay-verify="attach_size"
+                                                   placeholder="请输入附件大小" value="{{ system.attach_size }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">附件类型</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="attach_extensions" lay-verify="attach_extensions"
+                                                   placeholder="请输入附件类型" value="{{ system.attach_extensions }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="layui-tab-item">
+                                     <div class="layui-form-item" pane>
+                                        <label class="layui-form-label">文档水印</label>
+                                        <div class="layui-input-inline">
+                                            <input type="checkbox" lay-verify="required"
+                                                   name="document_water" lay-skin="switch"
+                                                   lay-text="是|否" {% if system.document_water %} checked {% endif %}
+                                                   value="1">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item" pane>
+                                        <label class="layui-form-label">开启评论</label>
+                                        <div class="layui-input-inline">
+                                            <input type="checkbox" lay-verify="required"
+                                                   name="open_comment" lay-skin="switch"
+                                                   lay-text="是|否" {% if system.open_comment %} checked {% endif %}
+                                                   value="1">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item" pane>
+                                        <label class="layui-form-label">评论验证码</label>
+                                        <div class="layui-input-inline">
+                                            <input type="checkbox" lay-verify="required"
+                                                   name="comment_captcha" lay-skin="switch"
+                                                   lay-text="是|否" {% if system.comment_captcha %} checked {% endif %}
+                                                   value="1">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item" pane>
+                                        <label class="layui-form-label">用户评论</label>
+                                        <div class="layui-input-inline">
+                                            <input type="checkbox" lay-verify="required"
+                                                   name="user_comment" lay-skin="switch"
+                                                   lay-text="是|否" {% if system.user_comment %} checked {% endif %}
+                                                   value="1">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item" pane>
+                                        <label class="layui-form-label">游客评论</label>
+                                        <div class="layui-input-inline">
+                                            <input type="checkbox" lay-verify="required"
+                                                   name="guest_comment" lay-skin="switch"
+                                                   lay-text="是|否" {% if system.guest_comment %} checked {% endif %}
+                                                   value="1">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item" pane>
+                                        <label class="layui-form-label">评论审核</label>
+                                        <div class="layui-input-inline">
+                                            <input type="checkbox" lay-verify="required"
+                                                   name="comment_audit" lay-skin="switch"
+                                                   lay-text="是|否" {% if system.comment_audit %} checked {% endif %}
+                                                   value="1">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">评论时间间隔</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="comment_time_interval"
+                                                   lay-verify="comment_time_interval" placeholder="请输入评论时间间隔"
+                                                   value="{{  system.comment_time_interval }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="layui-tab-item">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">后台管理地址</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="admin_prefix"
+                                                   lay-verify="admin_prefix"
+                                                   placeholder="请输入后台管理地址"
+                                                   value="{{  system.admin_prefix }}"
+                                                   class="layui-input">
+                                        </div>
+                                        <div class="layui-form-mid layui-word-aux">修改后需要重启Flask才能生效</div>
+                                    </div>
+                                    <div class="layui-form-item" pane>
+                                        <label class="layui-form-label">允许注册</label>
+                                        <div class="layui-input-inline">
+                                            <input type="checkbox" lay-verify="required"
+                                                   name="open_register" lay-skin="switch"
+                                                   lay-text="是|否" {% if system.open_register %} checked {% endif %}
+                                                   value="1">
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item" pane>
+                                        <label class="layui-form-label">开启缓存</label>
+                                        <div class="layui-input-inline">
+                                            <input type="checkbox" lay-verify="required"
+                                                   name="open_cache" lay-skin="switch"
+                                                   lay-text="是|否" {% if system.open_cache %} checked {% endif %}
+                                                   value="1">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">缓存时间</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="cache_time" lay-verify="cache_time"
+                                                   placeholder="请输入缓存时间" value="{{  system.cache_time }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">内容分页大小</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="pagination_number" lay-verify="pagination_number"
+                                                   placeholder="请输入内容分页大小" value="{{  system.pagination_number }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">CELERY BROKER URL</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="celery_broker_url" lay-verify="celery_broker_url"
+                                                   placeholder="请输入CELERY_BROKER_URL"
+                                                   value="{{  system.celery_broker_url }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">CELERY RESULT BACKEND</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="celery_result_backend"
+                                                   lay-verify="celery_result_backend"
+                                                   placeholder="请输入CELERY RESULT BACKEND"
+                                                   value="{{  system.celery_result_backend }}"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item-custom">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit="" lay-filter="setSystem">确认修改</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重新填写</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block js %}
+    <script src="{{ url_for('static',filename='admin/js/system.js') }}"></script>
+    {% endblock %}

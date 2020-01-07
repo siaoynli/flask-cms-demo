@@ -1,0 +1,120 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+    <title>添加导航</title>
+{% endblock %}
+
+{% block content %}
+    <form class="layui-form  layui-form-pane ui-form" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择角色</label>
+            <div class="layui-input-inline">
+                <select name="role_id" lay-verify="">
+                    {% if roles %}
+                        {% for role in roles %}
+                            <option value="{{ role.id }}">{{ role.name }}</option>
+                        {% endfor %}
+                    {% else %}
+                        <option value="">请先创建角色</option>
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" value="" placeholder="请输入用户名" lay-verify="required|name"
+                       class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">创建后不可修改</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" value=""
+                       lay-verify="required"
+                       autocomplete="off" placeholder="请输入密码" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-inline">
+                <input type="text" name="email" value="" lay-verify="email"
+                       autocomplete="off"
+                       placeholder="请输入邮箱" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机</label>
+            <div class="layui-input-inline">
+                <input type="text" name="phone" value="" lay-verify="myphone"
+                       autocomplete="off"
+                       placeholder="请输入手机号码" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">昵称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="nick_name" value=""
+                       lay-verify="required|nickname"
+                       autocomplete="off" placeholder="请输入昵称" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">真实姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="chinese_name" value=""
+                       lay-verify="chinese_name"
+                       autocomplete="off" placeholder="请输入真实姓名" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" pane>
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" title="男" checked value="1">
+                <input type="radio" name="sex" title="女" value="2">
+                <input type="radio" name="sex" title="保密" value="0">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">QQ</label>
+            <div class="layui-input-inline">
+                <input type="text" name="qq" value="" lay-verify="qq"
+                       autocomplete="off"
+                       placeholder="请输入QQ号码" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-upload">
+                <div class="layui-upload-list">
+                    <div class="upload-thumb-img">
+                        <img src="/static/admin/images/guest.png" >
+                    </div>
+                </div>
+                <button type="button" class="layui-btn" id="upload-avatar"
+                        upload-url="{{ url_for('upload.upload_avatar') }}" upload-type="images">
+                    上传头像
+                </button>
+            </div>
+            <input  type="hidden" name="avatar" class="layui-input input-upload" lay-verify="avatar" value="/static/admin/images/guest.png">
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea name="remarks" placeholder="请输入内容"
+                          class="layui-textarea ui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item layui-hide">
+            <input type="button" lay-submit="" lay-filter="app-form-submit" id="app-form-submit"
+                   value="提交" data-type="save">
+
+        </div>
+    </form>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static',filename='admin/js/admin.js') }}"></script>
+{% endblock %}

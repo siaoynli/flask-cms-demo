@@ -1,0 +1,33 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+<title>回复留言</title>
+{% endblock %}
+
+{% block content %}
+
+
+<form class="layui-form  layui-form-pane ui-form" method="post">
+    <blockquote class="layui-elem-quote">
+        {{ guestbook.username }}： {{guestbook.content}}
+    </blockquote>
+    <input type="hidden" name="pid" value="{{ pid }}">
+    <input type="hidden" name="root_id" value="{{ guestbook.root_id}}-{{ pid }}">
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">留言内容</label>
+        <div class="layui-input-block">
+                <textarea name="content" placeholder="请输入留言内容" lay-verify="required"
+                          class="layui-textarea ui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item layui-hide">
+        <input type="button" lay-submit="" lay-filter="app-form-submit" id="app-form-submit"
+               value="提交" data-type="save">
+
+    </div>
+</form>
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static',filename='admin/js/guestbook.js') }}"></script>
+{% endblock %}

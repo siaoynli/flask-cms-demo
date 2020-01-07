@@ -1,0 +1,87 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+    <title>编辑导航</title>
+{% endblock %}
+
+{% block content %}
+    <form class="layui-form  layui-form-pane ui-form" method="post">
+
+        <input type="hidden" name="id" value="{{ menu.id }}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">导航名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" lay-verify="required" placeholder="请输入导航名称" autocomplete="off"
+                       class="layui-input" value="{{ menu.name }}">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">导航简介</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入导航简介" name="label"
+                          class="layui-textarea ui-textarea">{{ menu.label }}</textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">图标</label>
+            <div class="layui-input-inline">
+                <input type="text" name="icon" lay-filter="iconPicker"  autocomplete="off"  class="layui-input" value="{{ menu.icon }}" id="iconPicker">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">endpoint</label>
+            <div class="layui-input-inline">
+                <input type="text" name="endpoint_name" lay-verify="" placeholder="请输入endpoint名称" autocomplete="off"
+                       class="layui-input" value="{{ menu.endpoint_name }}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-inline">
+                <input type="text" name="level" lay-verify="required|number" placeholder="请输入排序数字" autocomplete="off"
+                       value="0"
+                       class="layui-input" value="{{ menu.level }}">
+            </div>
+        </div>
+        {% if menu.id != 1 %}
+            <div class="layui-form-item">
+                <label class="layui-form-label">所属父级</label>
+                <div class="layui-input-inline">
+                    <select name="pid" lay-verify="required" lay-search>
+                        <option value="0">请选择</option>
+                        {% for item in menus %}
+                            <option value="{{ item.id }}" {% if menu.pid == item.id %}
+                                    selected {% endif %}>{{ item.html|safe }}{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        {% endif %}
+        <div class="layui-form-item" pane>
+            <label class="layui-form-label">新窗口打开</label>
+            <div class="layui-input-block">
+                <input type="checkbox" lay-verify="required" lay-filter="target" name="target" lay-skin="switch"
+                       lay-text="是|否" {% if menu.target %} checked  {% endif %} value="1">
+            </div>
+        </div>
+        <div class="layui-form-item" pane>
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <input type="checkbox" lay-verify="required" lay-filter="status" name="active"
+                       title="激活" {% if menu.active %} checked  {% endif %} value="1">
+            </div>
+        </div>
+        <div class="layui-form-item layui-hide">
+            <input type="button" lay-submit="" lay-filter="app-form-submit" id="app-form-submit"
+                   value="提交" data-type="update">
+        </div>
+    </form>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static',filename='admin/js/menu.js') }}"></script>
+{% endblock %}

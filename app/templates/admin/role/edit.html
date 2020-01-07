@@ -1,0 +1,75 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+    <title>编辑角色</title>
+{% endblock %}
+
+{% block content %}
+    <form class="layui-form  layui-form-pane ui-form" method="post">
+
+        <input type="hidden" name="id" value="{{ role.id }}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name"  lay-verify="required"  placeholder="请输入导航名称" autocomplete="off"
+                       class="layui-input" value="{{ role.name }}">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">角色简介</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入导航简介" name="label"
+                          class="layui-textarea ui-textarea">{{ role.label }}</textarea>
+            </div>
+        </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">分配权限</label>
+            <div class="layui-input-block">
+                <table width="100%" cellspacing="1" cellpadding="0" border="0" class="ui-table">
+                 <tr>
+                      <td valign="middle" align="center" width="200"><b>菜单目录</b></td>
+                     <td  align="center"><b>按钮权限</b></td>
+                  </tr>
+                    {% for menu in menus %}
+                        <tr>
+                            <td valign="middle" width="200">
+                                <div class="layui-input-block">
+                                    <input type="checkbox" lay-filter="ckeckmenu"  lay-skin="primary" name="menu" title="{{ menu.name }}"  {% if menu.checkbox %} checked {% endif %}>
+                                </div>
+                            </td>
+                            <td>
+                                {% if menu.permissions %}
+                                    {% for permission in menu.permissions %}
+                                        <div class="ui-checkbox-list">
+                                            <div class="layui-input-inline">
+                                                <input type="checkbox" lay-skin="primary" value="{{ permission.id }}" name="permissions[]"  {% if permission.id in permission_ids %} checked {% endif %}
+                                                       title="{{ permission.name }}({{ permission.endpoint_name }})">
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            </div>
+        </div>
+
+        <div class="layui-form-item" pane>
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <input type="checkbox" lay-verify="required" lay-filter="status" name="active" title="激活" {% if role.active %} checked  {% endif %} value="1">
+            </div>
+        </div>
+        <div class="layui-form-item layui-hide">
+            <input type="button" lay-submit="" lay-filter="app-form-submit" id="app-form-submit"
+                   value="提交" data-type="update">
+        </div>
+    </form>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static',filename='admin/js/role.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+    <title>添加导航</title>
+{% endblock %}
+
+{% block content %}
+     <form class="layui-form  layui-form-pane ui-form" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label">导航名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" lay-verify="required" placeholder="请输入导航名称" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">导航简介</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入导航简介" name="label" class="layui-textarea ui-textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">图标</label>
+            <div class="layui-input-inline">
+                   <input type="text" name="icon" lay-filter="iconPicker" class="layui-input" value="" id="iconPicker">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">endpoint</label>
+            <div class="layui-input-inline">
+                <input type="text" name="endpoint_name" placeholder="请输入endpoint名称"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-inline">
+                <input type="text" name="level" lay-verify="required|number" placeholder="请输入排序数字" autocomplete="off"
+                       value="0"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属父级</label>
+            <div class="layui-input-inline">
+                <select name="pid" lay-verify="required" >
+                    <option value="0">请选择</option>
+                    {% for item in menus %}
+                        <option value="{{ item.id }}">{{ item.html|safe }}{{ item.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item" pane>
+            <label class="layui-form-label">新窗口打开</label>
+            <div class="layui-input-block">
+                <input type="checkbox" lay-verify="required" lay-filter="target" name="target" lay-skin="switch"
+                       lay-text="是|否" checked value="1">
+            </div>
+        </div>
+        <div class="layui-form-item" pane>
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <input type="checkbox" lay-verify="required" lay-filter="status" name="active" lay-skin="switch"
+                       lay-text="激活|锁定" checked value="1">
+            </div>
+        </div>
+        <div class="layui-form-item layui-hide">
+            <input type="button" lay-submit="" lay-filter="app-form-submit" id="app-form-submit"
+                   value="提交" data-type="save">
+
+        </div>
+    </form>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static',filename='admin/js/menu.js') }}"></script>
+{% endblock %}

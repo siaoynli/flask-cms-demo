@@ -1,0 +1,121 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+    <title>设置我的资料</title>
+{% endblock %}
+
+{% block content %}
+    <div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header ui-board-title">设置我的资料</div>
+                <div class="layui-card-body" pad15>
+                    <form class="layui-form  layui-form-pane" method="post"
+                          action="{{ url_for('admin.admin_profile') }}">
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">我的角色</label>
+                            <div class="layui-input-inline">
+                                <select name="role_id" lay-verify="">
+                                    {% if roles %}
+                                        {% for role in roles %}
+                                            {% if role.id == current_user.role_id  %}
+                                            <option value="{{ role.id }}" selected>{{ role.name }}</option>
+                                            {% else %}
+                                                     <option value="{{ role.id }}" disabled>{{ role.name }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <option value="">请先创建角色</option>
+                                    {% endif %}
+                                </select>
+
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">当前角色不可更改为其它角色</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">用户名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="username" value="{{ current_user.name }}" readonly
+                                       class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">不可修改。一般用于后台登入名</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">昵称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="nick_name" value="{{ current_user.nick_name }}"
+                                       lay-verify="required|nickname"
+                                       autocomplete="off" placeholder="请输入昵称" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">真实姓名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="chinese_name" value="{{ current_user.chinese_name }}"
+                                       lay-verify="chinese_name"
+                                       autocomplete="off" placeholder="请输入真实姓名" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">性别</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="sex" title="男" {% if current_user.sex == 1 %}
+                                       checked {% endif %} value="1">
+                                <input type="radio" name="sex" title="女"  {% if current_user.sex == 2 %}
+                                       checked {% endif %}  value="2">
+                                <input type="radio" name="sex" title="保密"  {% if current_user.sex == 0 %}
+                                       checked {% endif %}  value="0">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">手机</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="phone" value="{{ current_user.phone }}" lay-verify="myphone"
+                                       autocomplete="off"
+                                       placeholder="请输入手机号码" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">QQ</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="qq" value="{{ current_user.qq }}" lay-verify="qq"
+                                       autocomplete="off"
+                                       placeholder="请输入QQ号码" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">邮箱</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" value="{{ current_user.email }}" lay-verify="email"
+                                       autocomplete="off"
+                                       placeholder="请输入邮箱" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">备注</label>
+                            <div class="layui-input-block">
+                <textarea name="remarks" placeholder="请输入内容"
+                          class="layui-textarea ui-textarea">{{ current_user.remarks }}</textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item-custom">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit="" lay-filter="setProfile">确认修改</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重新填写</button>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static',filename='admin/js/profile.js') }}"></script>
+{% endblock %}

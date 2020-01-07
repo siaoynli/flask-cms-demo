@@ -1,0 +1,61 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+<title>编辑公告</title>
+{% endblock %}
+
+{% block content %}
+<form class="layui-form  layui-form-pane ui-form" method="post">
+    <input type="hidden" name="id" value="{{ note.id }}">
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">公告内容</label>
+        <div class="layui-input-block">
+                <textarea name="content" placeholder="请输入公告内容" lay-verify="required"
+                          class="layui-textarea ui-textarea">{{ note.content }}</textarea>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+
+        <label class="layui-form-label">起始时间</label>
+        <div class="layui-input-inline">
+            <input type="text" name="start_date" id="start_date" lay-verify="date" value="{{ note.start_date }}"
+                   placeholder="YYYY-MM-DD" autocomplete="off" class="layui-input laydate" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+
+        <label class="layui-form-label">结束时间</label>
+        <div class="layui-input-inline">
+            <input type="text" name="end_date" id="end_date" lay-verify="date|end_date" value="{{ note.end_date }}"
+                   placeholder="YYYY-MM-DD" autocomplete="off" class="layui-input laydate" readonly>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序</label>
+        <div class="layui-input-inline">
+            <input type="text" name="level" lay-verify="required|number" placeholder="请输入排序数字" autocomplete="off"
+                   value="{{ note.level }}"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item" pane>
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block">
+            <input type="checkbox" lay-verify="required" lay-filter="status" name="active"
+                   title="激活" {% if note.active %} checked {% endif %} value="1">
+        </div>
+    </div>
+    <div class="layui-form-item layui-hide">
+        <input type="button" lay-submit="" lay-filter="app-form-submit" id="app-form-submit"
+               value="提交" data-type="update">
+
+    </div>
+</form>
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static',filename='admin/js/note.js') }}"></script>
+{% endblock %}

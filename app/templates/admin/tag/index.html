@@ -1,0 +1,48 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+<title>标签列表</title>
+{% endblock %}
+
+{% block content %}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header ui-board-title">标签列表</div>
+                <div class="layui-card-body" pad15>
+
+                    <blockquote class="layui-elem-quote layui-hide"></blockquote>
+
+                    <table class="layui-hide" id="LAY-app-content-list" lay-filter="LAY-app-content-list"
+                           data-url="{{ url_for('admin.tag_index') }}">
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    {% block toorbar %}
+    <div class="layui-btn-group" width="640" height="560">
+
+        <button class="layui-btn layui-btn-danger" title="删除" lay-event="remove"><i
+                class="layui-icon layui-icon-delete"></i></button>
+    </div>
+    {% endblock %}
+    {% block js %}
+
+    {% raw %}
+
+
+    <script type="text/html" id="action_menu">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layui-btn-danger" title="删除" lay-event="del"><i
+                    class="layui-icon layui-icon-delete"></i></button>
+
+        </div>
+    </script>
+
+    {% endraw %}
+    <script src="{{ url_for('static',filename='admin/js/tag.js') }}"></script>
+    {% endblock %}

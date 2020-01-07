@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>后台管理系统</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='js/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='admin/style/login.css') }}">
+</head>
+<body>
+<div class="ui-wrapper">
+    <form action="{{ url_for('admin.login',next=request.args.get('next')) }}" method="post" name="login">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="ui-panel">
+            <div class="ui-panel-bg"></div>
+
+            <div class="ui-header">
+                <div class="ui-avatar {% if admin %} show {% endif %}"
+                     data-url="{{ url_for('admin.get_avatar',name='' ) }}"
+                     data-name="{% if admin %}{{ admin.name }}{% endif %}">
+                    <span>
+                        {% if admin %}
+                           <img src="{{ admin.avatar }}">
+                        {% else %}
+                            <img src="{{ url_for('static',filename='admin/images/guest.png') }}">
+                        {% endif %}
+                    </span>
+                    {% if admin %}
+                    <em> {{ admin.name }}</em>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="ui-notice"></div>
+            <div class="ui-login-container">
+                {% if admin %}
+                <div class="ui-form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"> <i class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" name="name" class="form-control" placeholder="用户名或邮箱"
+                               value="{{ admin.name }}" autocomplete="off">
+                    </div>
+                </div>
+                {% else %}
+                <div class="ui-form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"> <i class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" name="name" class="form-control" placeholder="用户名或邮箱" autocomplete="off">
+                    </div>
+                </div>
+                {% endif %}
+                <div class="ui-form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"> <i class="glyphicon glyphicon-lock"></i></span>
+                        <input type="password" name="password" class="form-control" id="password_field"
+                               placeholder="密码">
+                    </div>
+                </div>
+                <div class="ui-form-group">
+                    <button type="button" class="btn btn-green btn-block  submit">
+                        <span>登&nbsp;&nbsp;录</span>
+                    </button>
+                </div>
+            </div>
+            <div class="ui-footer">
+                <p>Copyright &copy; 2018 </p>
+                <p>技术支持：<a href="http://www.hangzhou.com.cn" target="_blank">杭州网</a></p></div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
+<script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static',filename='layui/layui.js') }}"></script>
+<script src="{{ url_for('static',filename='admin/js/login.js') }}"></script>
+
+

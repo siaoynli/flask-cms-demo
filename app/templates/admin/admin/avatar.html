@@ -1,0 +1,52 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+    <title>修改我的头像</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='admin/style/webuploader.css') }}" media="all">
+{% endblock %}
+
+{% block content %}
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-header ui-board-title">修改我的头像</div>
+                    <div class="layui-card-body" pad15>
+                        <blockquote class="layui-elem-quote">
+                            提示信息：上传之前，请确保您的浏览器支持html5或者已经安装了flash插件。
+                        </blockquote>
+                        <form class="layui-form  layui-form-pane" method="post"
+                              action="{{ url_for('admin.admin_edit_avatar') }}">
+                            <div class="layui-form-item">
+                                <div class="layui-upload">
+                                    <div class="layui-upload-list" >
+                                        {% if avatar == '/static/admin/images/guest.png' %}
+                                            <div class="upload-thumb-img"><img src="{{ avatar }}" ></div>
+                                        {% else %}
+                                        <div class="upload-thumb-img"><img src="{{ avatar }}" lay-tips="单击删除"></div>                           {% endif %}
+                                    </div>
+
+                                     <button  type="button" class="layui-btn " id="upload-avatar"  upload-url="{{ url_for('upload.upload_avatar') }}" >上传头像</button >
+                                </div>
+                                <input type="hidden" name="avatar" lay-verify="avatar"
+                                       class="layui-input input-upload" value="{{ avatar }}">
+                            </div>
+                            <div class=" layui-form-item-custom">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit="" lay-filter="setavatar">确认修改</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static',filename='admin/js/avatar.js') }}"></script>
+{% endblock %}

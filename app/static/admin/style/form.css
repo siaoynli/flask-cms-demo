@@ -1,0 +1,134 @@
+.fr {
+    float: right;
+}
+
+.layui-form-item {
+    margin-bottom: 1rem;
+}
+
+/* 表单方框风格 */
+.layui-form-pane .layui-form-label {
+    width: 160px;
+    padding: 8px 15px;
+    height: 38px;
+    line-height: 20px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2px 0 0 2px;
+    text-align: center;
+    background-color: #FBFBFB;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+}
+
+.layui-form-pane .layui-input-inline {
+    margin-left: -1px;
+}
+
+.layui-form-item .layui-input-inline {
+    width: 300px;
+    min-height: 36px;
+}
+
+.layui-form-pane .layui-input-block {
+    margin-left: 160px;
+    left: -1px;
+}
+
+.layui-form-pane .layui-input {
+    border-radius: 0 2px 2px 0;
+}
+
+.layui-form-pane .layui-form-text .layui-form-label {
+    float: none;
+    width: 100%;
+    border-radius: 2px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.layui-form-pane .layui-form-text .layui-input-inline {
+    display: block;
+    margin: 0;
+    top: -1px;
+    clear: both;
+}
+
+.layui-form-pane .layui-form-text .layui-input-block {
+    margin: 0;
+    left: 0;
+    top: -1px;
+}
+
+.layui-form-pane .layui-form-text .layui-textarea {
+    min-height: 100px;
+    border-radius: 0 0 2px 2px;
+}
+
+.layui-form-pane .layui-form-checkbox {
+    margin: 4px 10px 4px 0;
+}
+
+.layui-form-pane .layui-form-switch,
+.layui-form-pane .layui-form-radio {
+    margin-top: 6px;
+    margin-left: 10px;
+}
+
+.layui-form-pane .layui-form-item[pane] {
+    position: relative;
+    border: none;
+    /*border-width: 1px;*/
+    /*border-style: solid;*/
+}
+
+.layui-form-pane .layui-form-item[pane] .layui-form-label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    border-width: 1px;
+    border-right-width: 0px;
+}
+
+.layui-form-pane .layui-form-item[pane] .layui-input-block {
+    margin-left: 160px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #e6e6e6;
+}
+
+
+.layui-form-pane .layui-form-item[pane] .layui-input-inline {
+    margin-left: 160px;
+    width: 220px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #e6e6e6;
+}
+
+.layui-card-body {
+    line-height: normal;
+}
+
+.layui-form-mid-sc {
+    float: left;
+    display: block;
+    padding:0!important ;
+    line-height: 20px;
+    margin-right: 10px;
+}
+
+.layui-form-select2 .layui-edge {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -3px;
+    cursor: pointer;
+    border-width: 6px;
+    border-top-color: #c2c2c2;
+    border-top-style: solid;
+    -webkit-transition: all .3s;
+}

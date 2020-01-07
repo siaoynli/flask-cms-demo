@@ -1,0 +1,42 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+<title>编辑留言</title>
+{% endblock %}
+
+{% block content %}
+<form class="layui-form  layui-form-pane ui-form" method="post">
+    <input type="hidden" name="id" value="{{ guestbook.id }}">
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">留言内容</label>
+        <div class="layui-input-block">
+                <textarea name="content" placeholder="请输入留言内容" lay-verify="required"
+                          class="layui-textarea ui-textarea">{{ guestbook.content }}</textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">点赞数</label>
+        <div class="layui-input-inline">
+            <input type="text" name="good" lay-verify="required|number" placeholder="请输入点赞数" autocomplete="off"
+                   value="{{ guestbook.good }}"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item" pane>
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block">
+            <input type="checkbox" lay-verify="required" lay-filter="status" name="active"
+                   title="激活" {% if guestbook.active %} checked {% endif %} value="1">
+        </div>
+    </div>
+    <div class="layui-form-item layui-hide">
+        <input type="button" lay-submit="" lay-filter="app-form-submit" id="app-form-submit"
+               value="提交" data-type="update">
+
+    </div>
+</form>
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static',filename='admin/js/guestbook.js') }}"></script>
+{% endblock %}

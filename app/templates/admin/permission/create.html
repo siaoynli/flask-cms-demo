@@ -1,0 +1,71 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+    <title>添加权限</title>
+{% endblock %}
+
+{% block content %}
+    <form class="layui-form layui-form-pane ui-form" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" lay-verify="required" placeholder="请输入权限名称" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">endpoint</label>
+            <div class="layui-input-inline">
+                <input type="text" name="endpoint_name" lay-verify="required" placeholder="请输入endpoint名称"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+          <div class="layui-form-item " >
+            <label class="layui-form-label">对应导航</label>
+            <div class="layui-input-inline">
+                <select name="menu_id" lay-verify="required"  lay-filter="app-form-select" >
+                    <option value="">请选择...</option>
+                    {% for item in menus %}
+                        {% if  item.children %}
+                            <optgroup label="{{ item.name }}">
+                                {% for element in item.children %}
+                                    {% if  element.children %}
+                                        <optgroup label="&nbsp;&nbsp;{{ element.name }}">
+                                            {% for c in element.children %}
+                                                <option value="{{ c.id }} ">{{ c.name }} </option>
+                                            {% endfor %}
+                                        </optgroup>
+                                    {% else %}
+                                        <option value="{{ element.id }}">{{ element.name }}</option>
+                                    {% endif %}
+
+                                {% endfor %}
+                            </optgroup>
+                        {% else %}
+                            <option value="{{ item.id }}">{{ item.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">权限简介</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入权限简介" name="label" class="layui-textarea ui-textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-hide">
+            <input type="button" lay-submit="" lay-filter="app-form-submit" id="app-form-submit"
+                   value="提交" data-type="save">
+
+        </div>
+    </form>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static',filename='admin/js/permission.js') }}"></script>
+{% endblock %}

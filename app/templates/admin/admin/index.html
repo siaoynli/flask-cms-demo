@@ -1,0 +1,56 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+<title>管理员列表</title>
+{% endblock %}
+
+{% block content %}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header ui-board-title">管理员列表</div>
+                <div class="layui-card-body" pad15>
+
+                    <blockquote class="layui-elem-quote layui-hide"></blockquote>
+
+                    <table class="layui-hide nopage" id="LAY-app-content-list" lay-filter="LAY-app-content-list"
+                           data-url="{{ url_for('admin.admin_index') }}">
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+
+    {% block js %}
+
+    {% raw %}
+    <script type="text/html" id="action_menu">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layui-btn-warm" title="编辑" lay-event="edit"><i
+                    class="layui-icon layui-icon-edit"></i></button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" title="删除" lay-event="del"><i
+                    class="layui-icon layui-icon-delete"></i></button>
+
+        </div>
+
+    </script>
+
+    <script type="text/html" id="switchSexTpl">
+        <input type="checkbox" name="sex" value="{{ d.id}}" data-type="checkbox" lay-filter="switch"
+               lay-skin="switch" lay-text="男|女" {{ d.sex== 1 ? 'checked' : '' }}>
+    </script>
+
+
+    <script type="text/html" id="checkboxTpl">
+        <input type="checkbox" name="active" title="激活" value="{{ d.id}}" data-type="checkbox" lay-filter="lock" {{
+               d.active== 1 ? 'checked' : '' }} >
+    </script>
+
+
+    {% endraw %}
+    <script src="{{ url_for('static',filename='admin/js/admin.js') }}"></script>
+    {% endblock %}

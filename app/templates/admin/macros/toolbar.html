@@ -1,0 +1,43 @@
+{% macro input(maxmin='',add=True,modify=True,remove=True, width=640, height=560) %}
+<script type="text/html" id="toolbar">
+    <div class="table-toolbar">
+        <div class="layui-btn-group {{ maxmin }}" width="{{ width }}" height="{{ height }}">
+            {% if add %}
+            <button class="layui-btn layui-btn-normal" title="增加" lay-event="create"><i
+                    class="layui-icon layui-icon-add-1"></i></button>
+            {% endif %}
+
+            {% if modify %}
+            <button class="layui-btn layui-btn-warm" title="编辑" lay-event="modify"><i
+                    class="layui-icon layui-icon-edit"></i></button>
+            {% endif %}
+            {% if remove %}
+            <button class="layui-btn layui-btn-danger" title="删除" lay-event="remove"><i
+                    class="layui-icon layui-icon-delete"></i></button>
+            {% endif %}
+        </div>
+
+        <div class="table-search-bar">
+            <div class="layui-inline">
+                <form action="" method="post" name="search">
+                    <input class="layui-input" name="keyword" placeholder="请输入关键字"
+                           autocomplete="off" value="">
+                </form>
+            </div>
+
+            <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-primary" lay-event="search" title="搜索"><i
+                        class="layui-icon layui-icon-search"></i></button>
+
+                <button class="layui-btn layui-btn-primary" lay-event="reload" title="重载"><i
+                        class="layui-icon layui-icon-refresh-1 "></i></button>
+                <button class="layui-btn layui-btn-primary" lay-event="reflash" title="刷新"><i
+                        class="layui-icon layui-icon-refresh"></i></button>
+                <button class="layui-btn layui-btn-primary" lay-event="export" title="导出excel">
+                    <i
+                            class="layui-icon layui-icon-export "></i></button>
+            </div>
+        </div>
+    </div>
+</script>
+{% endmacro %}

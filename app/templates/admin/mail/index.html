@@ -1,0 +1,82 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+    <title>设置邮件服务</title>
+{% endblock %}
+
+{% block content %}
+    <div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header ui-board-title">设置邮件服务</div>
+                <div class="layui-card-body" pad15>
+                    <form class="layui-form  layui-form-pane" method="post"
+                          action="{{ url_for('admin.admin_mail') }}">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">邮件服务器</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="mail_server" placeholder="请输入邮件服务器" lay-verify="required"
+                                       value="{{ mail.mail_server }}" class="layui-input">
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">端口</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="port" value="{{ mail.port }}"
+                                       lay-verify="required|number"
+                                       autocomplete="off" placeholder="请输入邮件服务器端口" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">端口通用端口: 465</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">连接类型</label>
+                            <div class="layui-input-inline">
+                                <select name="link_model" lay-verify="required">
+                                    <option value="tls" {% if mail.link_model =='tls' %}  selected {% endif %}>TLS
+                                    </option>
+                                    <option value="ssl" {% if mail.link_model =='ssl' %}  selected {% endif %}>SSL
+                                    </option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">用户名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="username" value="{{ mail.username }}"
+                                       lay-verify="required"
+                                       autocomplete="off" placeholder="请输入邮箱用户名" class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">邮箱密码</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="password" value="{{ mail.password }}"
+                                       lay-verify="required"
+                                       autocomplete="off" placeholder="请输入邮箱密码" class="layui-input">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-form-item-custom">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit="" lay-filter="setMail">确认修改</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重新填写</button>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static',filename='admin/js/mail.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    {% block title %}
+    {% endblock %}
+    <meta name="renderer" content="webkit">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css') }}" media="all">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/toastr.css') }}" media="all">
+    <link rel="stylesheet" href="{{ url_for('static',filename='admin/style/form.css') }}" media="all">
+    <link rel="stylesheet" href="{{ url_for('static',filename='admin/style/admin.css') }}" media="all">
+    {% block css %}
+    {% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='admin/style/style.css') }}" media="all">
+</head>
+
+
+{% block content %}
+{% endblock %}
+
+
+<script type="text/html" id="toolbar">
+    <div class="table-toolbar">
+        {% block toorbar %}
+        <div class="layui-btn-group" width="640" height="560">
+            <button class="layui-btn layui-btn-normal" title="增加" lay-event="create"><i
+                    class="layui-icon layui-icon-add-1"></i></button>
+            <button class="layui-btn layui-btn-warm" title="编辑" lay-event="modify"><i
+                    class="layui-icon layui-icon-edit"></i></button>
+            <button class="layui-btn layui-btn-danger" title="删除" lay-event="remove"><i
+                    class="layui-icon layui-icon-delete"></i></button>
+        </div>
+        {% endblock %}
+        <div class="table-search-bar">
+            <div class="layui-inline">
+                <form action="" method="post" name="search">
+                    <input class="layui-input" name="keyword" placeholder="请输入关键字"
+                           autocomplete="off" value="">
+                </form>
+            </div>
+
+            <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-primary" lay-event="search" title="搜索"><i
+                        class="layui-icon layui-icon-search"></i></button>
+
+                <button class="layui-btn layui-btn-primary" lay-event="reload" title="重载"><i
+                        class="layui-icon layui-icon-refresh-1 "></i></button>
+                <button class="layui-btn layui-btn-primary" lay-event="reflash" title="刷新"><i
+                        class="layui-icon layui-icon-refresh"></i></button>
+                <button class="layui-btn layui-btn-primary" lay-event="export" title="导出excel">
+                    <i
+                            class="layui-icon layui-icon-export "></i></button>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<script src="{{ url_for('static',filename='layui/layui.js') }}"></script>
+{% block js %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,123 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+<title>编辑焦点图</title>
+{% endblock %}
+
+{% block content %}
+<form class="layui-form  layui-form-pane ui-form" method="post">
+    <input type="hidden" name="id" value="{{ link.id }}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">网站名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="site_name" value="{{ link.site_name }}" placeholder="请输入网站名称" lay-verify="required"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">网站地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="site_url" value="{{ link.site_url }}" lay-verify="url"
+                   autocomplete="off"
+                   placeholder="请输入网站地址" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">网站简介</label>
+        <div class="layui-input-block">
+                <textarea name="label" placeholder="请输入网站简介"
+                          class="layui-textarea ui-textarea">{{ link.label }}</textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-upload">
+            <div class="layui-upload-list">
+                {% if link.logo %}
+                <div class="upload-thumb-img">
+                    <img src="{{ link.logo }}" lay-tips="单击删除">
+                </div>
+                {% else %}
+                <div class="upload-thumb-img" style="display: none">
+                </div>
+                {% endif %}
+            </div>
+            <button type="button" class="layui-btn" id="upload-thumb"
+                    upload-url="{{ url_for('upload.upload_thumb') }}" upload-type="images">
+                上传LOGO
+            </button>
+        </div>
+        <input type="hidden" name="logo" class="layui-input input-upload" lay-verify="logo"
+               value="{{ link.logo }}">
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">管理员昵称</label>
+        <div class="layui-input-block">
+            <input type="text" name="site_admin" value="{{ link.site_admin }}" lay-verify=""
+                   autocomplete="off"
+                   placeholder="请输入管理员昵称" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">管理员邮箱</label>
+        <div class="layui-input-block">
+            <input type="text" name="site_admin_email" value="{{ link.site_admin_email }}" lay-verify="site_admin_email"
+                   autocomplete="off"
+                   placeholder="请输入管理员邮箱" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">管理员QQ</label>
+        <div class="layui-input-block">
+            <input type="text" name="site_admin_qq" value="{{ link.site_admin_qq }}" lay-verify="qq"
+                   autocomplete="off"
+                   placeholder="请输入管理员QQ" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">管理员电话</label>
+        <div class="layui-input-block">
+            <input type="text" name="site_admin_phone" value="{{ link.site_admin_phone }}" lay-verify="site_admin_phone"
+                   autocomplete="off"
+                   placeholder="请输入管理员电话" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序</label>
+        <div class="layui-input-inline">
+            <input type="text" name="level" lay-verify="required|number" placeholder="请输入排序数字" autocomplete="off"
+                   value="{{ link.level }}"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item" pane>
+        <label class="layui-form-label">首页显示</label>
+        <div class="layui-input-block">
+            <input type="checkbox" lay-verify="required" lay-filter="home_show" name="home_show" lay-skin="switch"
+                   lay-text="是|否" {% if link.home_show %} checked {% endif %} checked value="1">
+        </div>
+    </div>
+    <div class="layui-form-item" pane>
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block">
+            <input type="checkbox" lay-verify="required" lay-filter="status" name="active"
+                   title="激活" {% if link.active %} checked {% endif %} value="1">
+        </div>
+    </div>
+    <div class="layui-form-item layui-hide">
+        <input type="button" lay-submit="" lay-filter="app-form-submit" id="app-form-submit"
+               value="提交" data-type="update">
+
+    </div>
+</form>
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static',filename='admin/js/link.js') }}"></script>
+{% endblock %}

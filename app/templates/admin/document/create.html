@@ -1,0 +1,286 @@
+{% extends 'admin/layouts/base.html' %}
+
+{% block title %}
+<title>发布文章</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static',filename='js/ueditor/themes/default/css/ueditor.min.css') }}"
+      media="all">
+{% endblock %}
+
+{% block content %}
+<form class="layui-form  layui-form-pane ui-form" method="post">
+    <div class="document-container">
+        <div class="document-left">
+            <div class="layui-card">
+                <div class="layui-card-body" pad15>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">文章标题</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="title" lay-verify="required|title"
+                                   placeholder="请输入文章标题" value=""
+                                   class="layui-input ">
+                        </div>
+                        <div class="layui-form-mid-sc layui-word-aux"><span class="layui-btn layui-btn-sm">编辑样式</span>
+                            <input type="checkbox" lay-verify="required" name="is_original" title="原创"
+                                   value="1"></div>
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">自定义链接</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="uuid" class="layui-input" value="{{ uuid }}">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">.html</div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">选择栏目</label>
+                        <div class="layui-input-inline">
+                            <select name="column_id" lay-verify="required">
+                                {% if columns %}
+                                {% for column in columns %}
+                                <option value="{{ column.id }}">{{ column.html|safe }} {{column.title }}
+                                </option>
+                                {% endfor %}
+                                {% endif %}
+                            </select>
+
+                        </div>
+                        <div class="layui-form-mid-sc layui-word-aux"><span class="layui-btn layui-btn-sm">选择栏目</span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <div class="layui-input-block">
+                            <div id="content" style="width: 100%"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="document-right">
+            <div class="layui-card">
+                <div class="layui-tab" lay-filter="document-tab">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this" lay-id="document">稿签</li>
+                        <li lay-id="editor">编辑</li>
+                        <li lay-id="thumb">图片附件</li>
+                        <li lay-id="other">其他</li>
+
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <div class="layui-card-body" pad15>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">副标题</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="sub_title" class="layui-input">
+                                    </div>
+
+                                </div>
+                                <div class="layui-form-item" >
+                                        <input type="checkbox" name="attribute[]" title="推荐" value="R">
+                                        <input type="checkbox" name="attribute[]" title="置顶" value="T">
+                                        <input type="checkbox" name="attribute[]" title="头条" value="H">
+
+                                </div>
+                                 <div class="layui-form-item">
+                                    <label class="layui-form-label">META关键字</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="keyword"  placeholder="请输入META关键字" class="layui-input">
+                                    </div>
+
+                                </div>
+
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">META描述: <span class="layui-badge  layui-bg-green fr" >200</span></label>
+                                    <div class="layui-input-block">
+                                                    <textarea name="description" lay-verify="description"
+                                                              placeholder="请输入META描述"
+                                                              class="layui-textarea ui-textarea"></textarea>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">摘要: <span class="layui-badge  layui-bg-green fr">200</span></label>
+                                    <div class="layui-input-block">
+                                                    <textarea name="label" placeholder="请输入摘要"
+                                                              class="layui-textarea ui-textarea"></textarea>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">标签</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="tags" placeholder="请输入标签" class="layui-input">
+                                    </div>
+
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">初始阅读数</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="click" placeholder="" value="0"
+                                               class="layui-input">
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="layui-tab-item">
+                            <div class="layui-card-body" pad15>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">作者</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="author" lay-verify="author"
+                                               placeholder="请输入作者"
+                                               autocomplete="off" value="{{  current_user.chinese_name }}"
+                                               class="layui-input">
+                                    </div>
+
+                                </div>
+
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">来源</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="source" placeholder="请输入来源"
+                                               class="layui-input">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">来源链接</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="source_link" placeholder="请输入来源链接"
+                                               class="layui-input">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">外部链接</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="external_link" placeholder=""
+                                               class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">编辑</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="editor" placeholder="" class="layui-input">
+                                    </div>
+
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">发布时间</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="published_at" id="published_at"
+                                               lay-verify="datetime|published_at" placeholder="yyyy-MM-dd H:i:s"
+                                               autocomplete="off"
+                                               class="layui-input lay_datetime" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-tab-item">
+                            <div class="layui-card-body" pad15>
+                                <div class="layui-form-item">
+                                    <div class="layui-upload">
+                                        <div class="layui-upload-list" style="display: none">
+                                            <div class="upload-thumb-img">
+
+                                            </div>
+                                        </div>
+                                        <button type="button" class="layui-btn" id="upload-thumb"
+                                                upload-url="{{ url_for('upload.upload_thumb') }}"
+                                                upload-type="images">
+                                            上传缩略图
+                                        </button>
+                                    </div>
+                                    <input type="hidden" name="thumb_image" class="layui-input input-upload"
+                                           lay-verify="thumb_image"
+                                           value="">
+                                </div>
+                                <hr class="layui-bg-gray">
+
+                                <div class="layui-form-item">
+                                    <div class="layui-upload">
+                                        <div class="layui-upload-list" style="display: none">
+                                            <div class="upload-thumb-img">
+
+                                            </div>
+                                        </div>
+                                        <button type="button" class="layui-btn" id="upload-attach"
+                                                upload-url="{{ url_for('upload.upload_attach') }}"
+                                                upload-type="attach">
+                                            上传附件
+                                        </button>
+                                    </div>
+                                    <input type="hidden" name="attach_file" class="layui-input input-upload"
+                                           value="">
+                                    <input type="hidden" name="attach_name" class="layui-input input-upload"
+                                           value="">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="layui-tab-item">
+                            <div class="layui-card-body" pad15>
+                                <div class="layui-form-item" pane>
+                                    <label class="layui-form-label">新窗口打开</label>
+                                    <div class="layui-input-block">
+                                        <input type="checkbox" lay-verify="required" lay-filter="target"
+                                               name="target" lay-skin="switch" lay-text="是|否" value="1">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item" pane>
+                                    <label class="layui-form-label">允许评论</label>
+                                    <div class="layui-input-block">
+                                        <input type="checkbox" lay-verify="required" lay-filter="open_comment"
+                                               name="open_comment" lay-skin="switch" lay-text="是|否" value="1">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item" pane>
+                                    <label class="layui-form-label">登录可见</label>
+                                    <div class="layui-input-block">
+                                        <input type="checkbox" lay-verify="required" lay-filter="login_show"
+                                               name="login_show" lay-skin="switch" lay-text="是|否" value="1">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">查看密码</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="password_txt" placeholder=""
+                                               class="layui-input">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-hide">
+        <input type="button" lay-submit="" lay-filter="app-form-submit" id="app-form-submit"
+               value="提交" data-type="save">
+
+    </div>
+</form>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    window.UEDITOR_HOME_URL = "{{ url_for('static',filename='js/ueditor/') }}";
+    window.SERVER_URL = "{{ url_for('upload.upload_ueditor') }}";
+</script>
+<script src="{{ url_for('static',filename='js/ueditor/ueditor.config.js') }}"></script>
+<script src="{{ url_for('static',filename='js/ueditor/ueditor.all.min.js') }}"></script>
+<script src="{{ url_for('static',filename='admin/js/document.js') }}"></script>
+<script src="{{ url_for('static',filename='admin/js/ue.js') }}"></script>
+{% endblock %}
