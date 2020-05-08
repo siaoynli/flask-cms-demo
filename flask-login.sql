@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : Mysql
+ Source Server         : Mysql8
  Source Server Type    : MySQL
- Source Server Version : 50719
+ Source Server Version : 80016
  Source Host           : localhost:3306
  Source Schema         : flask-login
 
  Target Server Type    : MySQL
- Target Server Version : 50719
+ Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 06/09/2018 17:15:10
+ Date: 08/05/2020 14:41:32
 */
 
 SET NAMES utf8mb4;
@@ -55,9 +55,9 @@ CREATE TABLE `admins`  (
 -- ----------------------------
 -- Records of admins
 -- ----------------------------
-INSERT INTO `admins` VALUES (1, 0, 1, NULL, '2018-08-29 14:27:13', 'admin', 'admin@126.com', 'pbkdf2:sha256:50000$FZqGtAvo$dff9b81a4525a344873890db245d7e29d1370c3fb5cf54867e8eed2c7afea41f', 'admin1', '管理员', '/uploads/images/2018-09-03/7f9e1246c4caf9a740b0500318539a43.jpg', 2, '13516872343', '120235331', '', '127.0.0.1', '2018-09-06 14:56:51', 34, 0, 1);
+INSERT INTO `admins` VALUES (1, 0, 1, NULL, '2018-08-29 14:27:13', 'admin', 'admin@126.com', 'pbkdf2:sha256:50000$FZqGtAvo$dff9b81a4525a344873890db245d7e29d1370c3fb5cf54867e8eed2c7afea41f', 'admin1', '管理员', '/uploads/images/2018-09-03/7f9e1246c4caf9a740b0500318539a43.jpg', 2, '13516872343', '120235331', '', '127.0.0.1', '2020-05-08 14:38:45', 36, 0, 1);
 INSERT INTO `admins` VALUES (2, 0, 1, '2018-07-24 14:36:20', '2018-09-03 17:01:06', 'addsf', 'sdfsdf@126.com', 'pbkdf2:sha256:50000$JO5Z1xxx$24dc150b5857f27c3bf80ea8e459d582500be5b782b3ef8bda6103492a88b07f', 'dsfdsf', '是的发', '/uploads/images/2018-09-03/903eb6bfa3e48ff37e373dd37d768428.jpg', 2, '18906715596', '23424324', 'sdfd', '', '', 0, 0, 1);
-INSERT INTO `admins` VALUES (5, 0, 1, '2018-07-24 14:43:36', '2018-07-25 10:58:54', 'lixiaoyun', 'dfhdskhf@126.com', 'pbkdf2:sha256:50000$rK3mJVzR$0db77798e03f31b7b06881456a0989c5f9ece111d0bb1bdb850a710958d0d447', 'lixiaoyun', '打发斯', '/static/admin/images/guest.png', 1, '13516872342', '120235331', 'dfdsf', '', '', 0, 0, 1);
+INSERT INTO `admins` VALUES (5, 1, 1, '2018-07-24 14:43:36', '2018-07-25 10:58:54', 'lixiaoyun', 'dfhdskhf@126.com', 'pbkdf2:sha256:50000$rK3mJVzR$0db77798e03f31b7b06881456a0989c5f9ece111d0bb1bdb850a710958d0d447', 'lixiaoyun', '打发斯', '/static/admin/images/guest.png', 1, '13516872342', '120235331', 'dfdsf', '', '', 0, 0, 1);
 INSERT INTO `admins` VALUES (6, 1, 1, '2018-07-24 14:55:29', '2018-07-25 10:45:53', 'siaoynli', 'xdfds@32432.com', 'pbkdf2:sha256:50000$80lnrKHv$f6f605797b7a89ea3cd63406c71d667b0c55ddac8d079b02c87f258f9b9b2c6f', 'dfds123', '沙发', '/static/admin/images/guest.png', 1, '18906715574', '252996708', 'sdfdsf', '127.0.0.1', '2018-07-24 15:08:52', 1, 0, 7);
 INSERT INTO `admins` VALUES (7, 1, 1, '2018-07-25 11:05:44', '2018-07-25 11:05:54', 'dsf', 'dfsdfs@126.com', 'pbkdf2:sha256:50000$lAMVTEKm$243c7acd4310c9e09f7ab0af1c88376763852f56779f3c3ed9a708296da33a4b', 'sdfsdf', '大杀四方', '/static/admin/images/guest.png', 2, '18906715591', '', '', '', '', 0, 0, 1);
 
@@ -122,6 +122,10 @@ CREATE TABLE `document_tag`  (
   CONSTRAINT `document_tag_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `document_tag_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of document_tag
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for documents
@@ -337,7 +341,7 @@ CREATE TABLE `mails`  (
 -- ----------------------------
 -- Records of mails
 -- ----------------------------
-INSERT INTO `mails` VALUES (1, 0, 1, '2018-07-25 16:31:38', '2018-07-27 15:00:07', 'smtp.qq.com', 465, 'ssl', '120235331@qq.com', 'dwmtcdjpfylxcagh');
+INSERT INTO `mails` VALUES (1, 0, 1, '2018-07-25 16:31:38', '2020-05-08 14:41:14', 'smtp.qq.com', 465, 'ssl', '12023533106@qq.com', 'dwmtcdylxcagh');
 
 -- ----------------------------
 -- Table structure for menus
@@ -394,6 +398,10 @@ CREATE TABLE `messages`  (
   INDEX `ix_messages_is_active`(`is_active`) USING BTREE,
   INDEX `ix_messages_is_delete`(`is_delete`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of messages
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for notes
@@ -583,7 +591,7 @@ CREATE TABLE `systems`  (
 -- ----------------------------
 -- Records of systems
 -- ----------------------------
-INSERT INTO `systems` VALUES (1, 0, 1, NULL, '2018-08-31 16:27:40', '杭州网媒体管理系统', '杭州网媒体管理系统', '杭州网媒体管理系统', '杭州网媒体管理系统', '浙备2018', '<script></script>', '版权所有 @2018', 'uploads', 'txt', 'water/logo.png', '杭州网', '40', 'water/font/fzls.ttf', '#ffffff', 1024, 'jpg|gif|png', 800, 800, 102400, 'mp4|mov|avi', '/static/demo.png', 102400, 'pdf|doc|zip|rar', 1, 1, 1, 1, 1, 1, 10, 1, 10, 10, 'amqp://root:root@localhost:5672/myvhost', 'redis://localhost:6379', 'admin', 1);
+INSERT INTO `systems` VALUES (1, 0, 1, NULL, '2020-05-08 14:40:38', 'xx网媒体管理系统', 'xx网媒体管理系统', 'xx网媒体管理系统', 'xx网媒体管理系统', '浙备2018', '<script></script>', '版权所有 @2018', 'uploads', 'txt', 'water/logo.png', 'xx网', '40', 'water/font/fzls.ttf', '#ffffff', 1024, 'jpg|gif|png', 800, 800, 102400, 'mp4|mov|avi', '/static/demo.png', 102400, 'pdf|doc|zip|rar', 1, 1, 1, 1, 1, 1, 10, 1, 10, 10, 'amqp://root:root@localhost:5672/myvhost', 'redis://localhost:6379', 'admin', 1);
 
 -- ----------------------------
 -- Table structure for tags
