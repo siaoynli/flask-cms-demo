@@ -7,7 +7,7 @@ click==6.7
 configobj==5.0.6
 coverage==4.5.1
 cymysql==0.9.11
-eventlet==0.23.0
+eventlet==0.31.0
 Flask==1.0.2
 Flask-Celery==2.4.3
 Flask-Login==0.4.1
