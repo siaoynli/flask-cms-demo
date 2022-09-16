@@ -20,7 +20,7 @@ greenlet==0.4.14
 itsdangerous==0.24
 Jinja2==2.10
 kombu==4.2.1
-Mako==1.0.7
+Mako==1.2.2
 MarkupSafe==1.0
 Pillow==5.2.0
 python-dateutil==2.7.3
